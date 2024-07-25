@@ -12,7 +12,7 @@ register = template.Library()
 # Create your models here.
 
 
-class Group(models.model):
+class Group(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(allow_unicode=True, unique=True)
     description = models.TextField(blank=True, default='')
@@ -35,8 +35,8 @@ class Group(models.model):
     
 
 class GroupMember(models.Model):
-    Group = models.ForeignKey(Group, related_name='memberships')
-    user = models.ForeignKey(User, related_name='user_groups')
+    group = models.ForeignKey(Group, related_name='memberships' , on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='user_groups', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
