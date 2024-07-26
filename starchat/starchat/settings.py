@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "accounts",
     "groups",
     "posts",
+    "django.contrib.humanize",
     
 ]
 
