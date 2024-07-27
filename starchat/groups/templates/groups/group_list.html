@@ -1,7 +1,7 @@
 {% extends "groups/group_base.html" %}
 
 {% block pregroup %}
-<div class="col-md-4">
+<div class="col-md-6">
 	<div class="content">
 		{% if user.is_authenticated %}
 		<h2>
@@ -21,10 +21,29 @@
 {% endblock %}
 
 {% block group_content %}
-<div class="col-md-8">
+<div class="col-md-6">
 	<div class="list-group">
 		{% for group in object_list %}
-		  <a class="list-group-item" href="{% url 'groups:singleview' slug=group.slug %}">
+		<div class="row">
+			<div class="col-md-8">
+			  <div class="card border-primary mb-3">
+				<div class="card-header"><h3>{{ group.name }}</h3></div>
+				<div class="card-body">
+				  <p class="card-text">
+					{{ group.description_html|safe }}
+					<div class="col-md-8">
+						<span class="badge rounded-pill bg-successbadge rounded-pill bg-success ms-3">{{ group.members.count }}</span> Member{{ group.members.count|pluralize }}
+						<span class="badge rounded-pill bg-successbadge rounded-pill bg-success ms-3">{{ group.posts.count }}</span> post{{ group.posts.count|pluralize }}
+					</div>
+				  </p>
+				  <a href="{% url 'groups:singleview' slug=group.slug %}" class="btn btn-primary ms-3">Go To Group</a>
+				</div>
+			  </div>
+			</div>
+		  </div>
+
+
+		  {% comment %} <a class="list-group-item" href="{% url 'groups:singleview' slug=group.slug %}">
 			    <h3 class="title list-group-item-heading">{{ group.name }}</h3>
 			<div class="list-group-item-text container-fluid">
 				{{ group.description_html|safe }}
@@ -37,7 +56,7 @@
 					</div>
 				</div>
 			</div>
-		</a>
+		</a> {% endcomment %}
 		{% endfor %}
 	</div>
 </div>

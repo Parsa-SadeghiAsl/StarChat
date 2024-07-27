@@ -3,10 +3,30 @@
 {% load django_bootstrap5 %}
 
 {% block post_content %}
-<h4>Create New Post</h4>
+{% comment %} <h4>Create New Post</h4>
 <form method="POST" action="{% url 'posts:create' %}" id="postForm">
 	{% csrf_token %}
 	{% bootstrap_form form %}
 	<input type="submit" value="Post" class="btn btn-primary btn-large">
-</form>
+</form> {% endcomment %}
+
+
+<div class="col-md-6">
+    <div class="list-group">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card border-primary mb-3">
+                    <div class="card-header"><h3>Create New Post</h3></div>
+                    <div class="card-body">
+                        <form action="{% url 'posts:create' %}" method="POST" id='postForm'>
+                            {% csrf_token %}
+                            {%bootstrap_form form%}
+                            <input type="submit" value="Post" class="btn btn-primary btn-large">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
 {% endblock %}

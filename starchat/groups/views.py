@@ -12,7 +12,7 @@ from django.db import IntegrityError
 
 
 class CreateGroup(LoginRequiredMixin, generic.CreateView):
-    fields = ('name', 'description')
+    fields = ("name", "description")
     model = Group
 
 class SingleGroup(generic.DetailView):
