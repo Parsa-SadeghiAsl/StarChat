@@ -1,7 +1,6 @@
-<div class="post media">
+<!-- <div class="post media">
 	<h3>{{ post.message_html|safe }}</h3>
 	<div class="media-body">
-		{% comment %} <strong>{{ post.user.username }}</strong> {% endcomment %}
 		<h5 class="media-heading">
 			<span class="username"><a href="{% url 'posts:for_user' username=post.user.username %}">@{{ post.user.username }}</a></span>
 			<time class="time"><a href="{% url 'posts:single' username=post.user.username pk=post.pk %}">{{ post.created_at }}</a></time>
@@ -21,5 +20,23 @@
 				</a>
 			{% endif %}
 		</div>
+	</div>
+</div> -->
+
+
+<div class="col pt-2">
+	<div class="card">
+		<div class="card-header bg-secondary bg-gradient"><span class="username "><a href="{% url 'posts:for_user' username=post.user.username %}"><h4 class="text-light">@{{ post.user.username }}</h4></a></span></div>
+		<div class="card-body bg-light">
+		<p class="card-text">{{ post.message_html|safe }}</p>
+		{% if user.is_authenticated and post.user == user and not hide_delete %}
+		<a href="{% url 'posts:delete' pk=post.pk %}" title="delete">
+			<button type="button" class="btn btn-danger" data-mdb-ripple-init>Delete</button>
+		</a>
+
+			
+			{% endif %}
+		</div>
+		<div class="card-footer  bg-light"><time class="time"><a href="{% url 'posts:single' username=post.user.username pk=post.pk %}"><p class="text-muted">{{ post.created_at }}</p></a></time></div>
 	</div>
 </div>

@@ -8,3 +8,9 @@ padding-right: .75em;
 .card-registration .select-arrow {
 top: 13px;
 }
+
+a {
+    text-decoration: none;
+    outline-color: transparent;
+
+  }
