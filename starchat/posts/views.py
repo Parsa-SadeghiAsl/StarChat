@@ -11,6 +11,7 @@ from django.views import generic
 
 from braces.views import SelectRelatedMixin
 
+from groups.models import GroupMember
 from . import models
 from . import forms
 
@@ -57,14 +58,11 @@ class CreatePost(LoginRequiredMixin, SelectRelatedMixin, generic.CreateView):
         try:
             self.object = form.save(commit=False)
             self.object.user = self.request.user
-            if self.object.group and not self.object.user.groups.filter(pk=self.object.group.pk).exists():
+            if not GroupMember.objects.filter(user=self.request.user, group=self.object.group).exists():
                 raise ValidationError("You are not a member of this group")
             self.object.save()
             return redirect('posts:all')
         except ValidationError as e:
-            storage = messages.get_messages(self.request)
-            for message in storage:
-                pass  # Iterating through messages clears them
             messages.error(self.request, str(e), 'group_not_joined')
             return super().form_invalid(form)
 
